@@ -13,8 +13,8 @@
                         </div>
                         <div id="main-poll-errors" v-if="errors.length > 0">
                         <div class="accordions">
-                                <div class="accordion">
-                                    <div class="accordion-header toggle">
+                                <div class="accordion" id="accordion-validation-error">
+                                    <div class="accordion-header toggle" v-on:click="accordionClick">
                                         <p>{{ errors.length }} error{{errors.length > 1 ? 's' : '' }}.</p>
                                         <span class="icon is-small">
                                             <i class="fas fa-angle-down" aria-hidden="true"></i>
@@ -65,7 +65,6 @@
 <script>
 import validator from "validator";
 import autosize from "autosize";
-import bulmaAccordion from "bulma-extensions/bulma-accordion/dist/js/bulma-accordion.min.js";
 export default {
     name: 'Create',
     data: function () {
@@ -96,6 +95,10 @@ export default {
                 });
             }
         },
+        accordionClick: function () {
+            const errorAccordion = document.getElementById("accordion-validation-error");
+            errorAccordion.classList.toggle("is-active");
+        },
         hasErrors: function () {
             let errors = new Set(),
                 nonEmptyOptions = 0,
@@ -121,7 +124,6 @@ export default {
             if (this.hasErrors().size > 0) {
                 this.errors = Array.from(this.hasErrors());
                 setTimeout(() => event.target.classList.remove("is-loading"), 200);
-                setTimeout(() => bulmaAccordion.attach(), 200);
                 return;
             }
             fetch("http://localhost:3000/poll", {
