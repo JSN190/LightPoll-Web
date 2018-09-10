@@ -8,11 +8,11 @@
                             <textarea id="main-poll-form-name" class="140char" rows="1" maxlength="140" v-model="name" placeholder="Enter your question here..."></textarea>
                         </header>
                         <div class="card-content">
-                            <textarea v-for="index in (options.length + 1)" class="main-poll-form-option 140char" rows="1" maxlength="140" v-model="options[index-1]"
-                                :placeholder="optionPlaceholder(index - 1)"></textarea>
+                            <textarea v-for="index in (options.length + 1)" class="main-poll-form-option 140char" rows="1" maxlength="140" :key="index - 1"
+                                v-model="options[index-1]" :placeholder="optionPlaceholder(index - 1)"></textarea>
                         </div>
                         <div id="main-poll-errors" v-if="errors.length > 0">
-                        <div class="accordions">
+                            <div class="accordions">
                                 <div class="accordion" id="accordion-validation-error">
                                     <div class="accordion-header toggle" v-on:click="accordionClick">
                                         <p>{{ errors.length }} error{{errors.length > 1 ? 's' : '' }}.</p>
@@ -22,16 +22,16 @@
                                     </div>
                                     <div class="accordion-body">
                                         <div class="accordion-content">
-                                            <div v-for="error in errors">
-                                            <span class="icon has-text-warning">
-                                                <i class="fas fa-exclamation-triangle"></i>
-                                            </span>
-                                             {{ error }}
-                                             </div>
+                                            <div v-for="error in errors" :key="error">
+                                                <span class="icon has-text-warning">
+                                                    <i class="fas fa-exclamation-triangle"></i>
+                                                </span>
+                                                {{ error }}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                        </div>
+                            </div>
                         </div>
                         <footer class="card-footer">
                             <div>
