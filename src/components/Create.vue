@@ -99,30 +99,28 @@ export default {
             const errorAccordion = document.getElementById("accordion-validation-error");
             errorAccordion.classList.toggle("is-active");
         },
-        hasErrors: function () {
-            let errors = new Set(),
-                nonEmptyOptions = 0,
-                uniqueOptions = [];
+        flushAndPushErrors: function () {
+            let errors = new Set(), uniqueOptions = [];
+            const emptyOptions = this.options.reduce((acc, e) => String(e).trim().length < 1 ? acc + 1 : acc, 0);
+            const nonEmptyOptions = this.options.filter(e => String(e).trim().length >= 1);
+            if (emptyOptions === this.options.length) errors.add("All options are empty.");
+            if (nonEmptyOptions.length < 2) errors.add("This poll needs at least two options.");
             if (!this.name) errors.add("This poll needs a name.");
             if (this.name && !validator.isAscii(this.name)) errors.add("Unacceptable characters in name.");
             if (this.name && this.name.length > 140) errors.add("The poll name is too long.");
             for (let option of this.options) {
                 option = String(option);
-                if (option.length >= 1) nonEmptyOptions++;
                 if (option.length >= 1 && !validator.isAscii(option)) errors.add("Unacceptable characters in one or more options.");
                 if (option.length > 140) errors.add("One or more options is too long.");
-                if (option.trim().length === 0) errors.add("One or more options is blank.");
-                if (uniqueOptions.includes(option)) errors.add("Options must be unique.");
-                if (!uniqueOptions.includes(option)) uniqueOptions.push(option);
+                if (option.length >= 1 && uniqueOptions.includes(option)) errors.add("Options must be unique.");
+                if (option.length >= 1 && !uniqueOptions.includes(option)) uniqueOptions.push(option);
             }
-            if (nonEmptyOptions < 2) errors.add("This poll needs at least two options.");
-            return errors;
+            this.errors = Array.from(errors);
         },
         sendPollAndRetrieveId: function (event) {
-            this.errors = [];
             event.target.classList.add("is-loading");
-            if (this.hasErrors().size > 0) {
-                this.errors = Array.from(this.hasErrors());
+            this.flushAndPushErrors();
+            if (this.errors.length > 0) {
                 setTimeout(() => event.target.classList.remove("is-loading"), 200);
                 return;
             }
@@ -133,7 +131,7 @@ export default {
                     },
                     body: JSON.stringify({
                         name: this.name,
-                        options: this.options,
+                        options: this.options.filter(e => String(e).trim().length >= 1),
                         enforceUnique: this.enforceUnique,
                         anonymous: this.anonymous
                     })
@@ -142,8 +140,7 @@ export default {
                 .then(data => {
                     //something
                 })
-                .catch(() => {
-                    //something
+                .catch(e => {
                 })
                 .finally(() => setTimeout(() => event.target.classList.remove("is-loading"), 200));
         }
