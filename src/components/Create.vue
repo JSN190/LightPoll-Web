@@ -158,9 +158,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '~bulma-extensions/bulma-accordion/dist/css/bulma-accordion.min.css';
-@import '~@fortawesome/fontawesome-free/css/all.min.css';
-@import url('../styles/common.scss');
+@import "~bulma-extensions/bulma-accordion/dist/css/bulma-accordion.min.css";
+@import "~@fortawesome/fontawesome-free/css/all.min.css";
 main {
     padding: 25px 0px 25px 0px;
     #main-poll-form-card {

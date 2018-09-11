@@ -18,9 +18,10 @@ export default {
 </script>
 
 <style lang="scss">
-@import url('https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css');
-@import url('https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css');
-@import url('https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i');
+@import url("https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css");
+@import url("https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css");
+@import url("https://fonts.googleapis.com/css?family=Roboto:400,400i,500,500i,700,700i");
+@import "./styles/common.scss";
 
 * {
   box-sizing: border-box;
