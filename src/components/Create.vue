@@ -80,12 +80,12 @@ export default {
     name: "Create",
     data: getDefaultData,
     methods: {
-        optionPlaceholder: function (index) {
+        optionPlaceholder: function(index) {
             if (index === 0) return "And then enter an option...";
             else if (index === 1) return "And now another...";
             return "And maybe another...";
         },
-        setCharRestrictEffects: function () {
+        setCharRestrictEffects: function() {
             const elements = document.getElementsByClassName("140char");
             for (let element of elements) {
                 autosize(element);
@@ -98,12 +98,13 @@ export default {
                 });
             }
         },
-        accordionClick: function () {
+        accordionClick: function() {
             const errorAccordion = document.getElementById("accordion-validation-error");
             errorAccordion.classList.toggle("is-active");
         },
-        flushAndPushErrors: function () {
-            let errors = new Set(), uniqueOptions = [];
+        flushAndPushErrors: function() {
+            let errors = new Set(),
+                uniqueOptions = [];
             const emptyOptions = this.options.reduce((acc, e) => String(e).trim().length < 1 ? acc + 1 : acc, 0);
             const nonEmptyOptions = this.options.filter(e => String(e).trim().length >= 1);
 
@@ -121,7 +122,7 @@ export default {
             }
             this.errors = Array.from(errors);
         },
-        sendPollAndRetrieveId: function (event) {
+        sendPollAndRetrieveId: function(event) {
             event.target.classList.add("is-loading");
             this.flushAndPushErrors();
             if (this.errors.length > 0) {
@@ -140,22 +141,24 @@ export default {
                     anonymous: this.anonymous
                 })
             })
-                .then(res => res.json())
-                .then(data => {
-                    this.$router.push({ path: `/path/${data.poll_id}` });
-                    Object.assign(this.$data, getDefaultData());
-                })
-                .catch(e => {
-                })
-                .finally(() => setTimeout(() => event.target.classList.remove("is-loading"), 200));
+            .then(res => res.json())
+            .then(data => {
+                this.$router.push({ path: `/poll/${data.poll_id}` });
+                Object.assign(this.$data, getDefaultData());
+            })
+            .catch(e => {
+                console.error(e);
+                this.errors.push("There was an error submitting your poll.");
+            })
+            .finally(() => setTimeout(() => event.target.classList.remove("is-loading"), 200));
         }
     },
     watch: {
-        "options.length": function () {
+        "options.length": function() {
             this.setCharRestrictEffects();
         }
     },
-    mounted: function () {
+    mounted: function() {
         this.setCharRestrictEffects();
     }
 };
