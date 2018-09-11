@@ -157,7 +157,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import 'bulma';
 @import '~bulma-extensions/bulma-accordion/dist/css/bulma-accordion.min.css';
 @import '~@fortawesome/fontawesome-free/css/all.min.css';
 @import url('../styles/common.scss');
