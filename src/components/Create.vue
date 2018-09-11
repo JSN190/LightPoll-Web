@@ -103,11 +103,12 @@ export default {
             let errors = new Set(), uniqueOptions = [];
             const emptyOptions = this.options.reduce((acc, e) => String(e).trim().length < 1 ? acc + 1 : acc, 0);
             const nonEmptyOptions = this.options.filter(e => String(e).trim().length >= 1);
-            if (emptyOptions === this.options.length) errors.add("All options are empty.");
-            if (nonEmptyOptions.length < 2) errors.add("This poll needs at least two options.");
+
             if (!this.name) errors.add("This poll needs a name.");
             if (this.name && !validator.isAscii(this.name)) errors.add("Unacceptable characters in name.");
             if (this.name && this.name.length > 140) errors.add("The poll name is too long.");
+            if (nonEmptyOptions.length < 2) errors.add("This poll needs at least two options.");
+            if (emptyOptions === this.options.length) errors.add("All options are empty.");
             for (let option of this.options) {
                 option = String(option);
                 if (option.length >= 1 && !validator.isAscii(option)) errors.add("Unacceptable characters in one or more options.");
