@@ -65,17 +65,20 @@
 <script>
 import validator from "validator";
 import autosize from "autosize";
+
+function getDefaultData() {
+    return {
+        name: null,
+        options: [],
+        anonymous: true,
+        enforceUnique: false,
+        errors: []
+    };
+}
+
 export default {
     name: "Create",
-    data: function () {
-        return {
-            name: null,
-            options: [],
-            anonymous: true,
-            enforceUnique: false,
-            errors: []
-        };
-    },
+    data: getDefaultData,
     methods: {
         optionPlaceholder: function (index) {
             if (index === 0) return "And then enter an option...";
@@ -139,7 +142,8 @@ export default {
             })
                 .then(res => res.json())
                 .then(data => {
-                    //something
+                    this.$router.push({ path: `/path/${data.poll_id}` });
+                    Object.assign(this.$data, getDefaultData());
                 })
                 .catch(e => {
                 })
