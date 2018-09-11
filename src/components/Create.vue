@@ -66,7 +66,7 @@
 import validator from "validator";
 import autosize from "autosize";
 export default {
-    name: 'Create',
+    name: "Create",
     data: function () {
         return {
             name: null,
@@ -74,7 +74,7 @@ export default {
             anonymous: true,
             enforceUnique: false,
             errors: []
-        }
+        };
     },
     methods: {
         optionPlaceholder: function (index) {
@@ -126,17 +126,17 @@ export default {
                 return;
             }
             fetch("http://localhost:3000/poll", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({
-                        name: this.name,
-                        options: this.options.filter(e => String(e).trim().length >= 1),
-                        enforceUnique: this.enforceUnique,
-                        anonymous: this.anonymous
-                    })
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    name: this.name,
+                    options: this.options.filter(e => String(e).trim().length >= 1),
+                    enforceUnique: this.enforceUnique,
+                    anonymous: this.anonymous
                 })
+            })
                 .then(res => res.json())
                 .then(data => {
                     //something
@@ -148,13 +148,13 @@ export default {
     },
     watch: {
         "options.length": function () {
-            this.setCharRestrictEffects()
+            this.setCharRestrictEffects();
         }
     },
     mounted: function () {
         this.setCharRestrictEffects();
     }
-}
+};
 </script>
 
 <style lang="scss" scoped>

@@ -15,15 +15,16 @@
 <script>
 export default {
     name: "Poll",
-    data: {
-        name: "",
-        description:  "",
-        options: []
+    data: function() {
+        return {
+            name: "",
+            description: "",
+            options: []
+        };
     },
-    mounted: function () {
-        //
+    mounted: function() {
     }
-}
+};
 </script>
 
 <style lang="scss" scoped>
