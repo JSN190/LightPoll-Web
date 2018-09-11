@@ -7,41 +7,41 @@ export default class {
         setInterval(() => { if (this.queueDelay > 50) this.queueDelay -= 50; }, 50);
     }
 
-    setPercentage(percentage) {
-        this.postToQueue(() => this.element.style.setProperty("width", `${percentage}%`));
+    setPercentage(percentage, customDelay = this.transitionDelay) {
+        this.postToQueue(() => this.element.style.setProperty("width", `${percentage}%`), customDelay);
     }
 
-    increasePercentage(percentage) {
-        const current = Number(this.element.style.getPropertyValue("width").replace("%", ""));
+    increasePercentage(percentage, customDelay = this.transitionDelay) {
+        const current = Number(this.element.style.getPropertyValue("width").replace("%", ""), customDelay);
         const newPercentage = current + percentage;
         this.setPercentage(newPercentage);
     }
 
-    disappear(disappearTransitionDelay = this.transitionDelay) {
+    disappear(customDelay = this.transitionDelay) {
         this.postToQueue(() => {
-            this.element.style.setProperty("transition", `${disappearTransitionDelay}ms ease-in-out`);
+            this.element.style.setProperty("transition", `${customDelay}ms ease-in-out`);
             this.element.style.setProperty("opacity", "0");
-        }, disappearTransitionDelay);
+        }, customDelay);
         this.postToQueue(() => this.element.style.setProperty("transition", 
-            `${this.transitionDelay}ms ease-in-out`), disappearTransitionDelay);
+            `${this.transitionDelay}ms ease-in-out`), customDelay);
     }
 
-    reset() {
-        this.postToQueue(() => this.element.style.setProperty("transition", "none"));
+    reset(customDelay = this.transitionDelay) {
+        this.postToQueue(() => this.element.style.setProperty("transition", "none"), customDelay);
         this.postToQueue(() => {
             this.element.style.setProperty("width", "0px");
             this.element.style.setProperty("opacity", "100");
-        });
-        this.postToQueue(() => this.element.style.setProperty("transition", `${this.transitionDelay}ms ease-in-out`));
+        }), customDelay;
+        this.postToQueue(() => this.element.style.setProperty("transition", `${this.transitionDelay}ms ease-in-out`), customDelay);
     }
 
-    restore() {
-        this.postToQueue(() => this.element.style.setProperty("opacity", "100"));
+    restore(customDelay = this.transitionDelay) {
+        this.postToQueue(() => this.element.style.setProperty("opacity", "100"), customDelay);
     }
 
-    finish(disappearTransitionDelay = this.transitionDelay) {
-        this.setPercentage(100);
-        this.disappear(disappearTransitionDelay);
+    finish(customDelay = this.transitionDelay) {
+        this.setPercentage(100, customDelay);
+        this.disappear(customDelay);
         this.reset();
     }
 
