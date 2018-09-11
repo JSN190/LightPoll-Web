@@ -41,7 +41,7 @@ export default {
     mounted: function() {
         this.addNavbarToggleListener();
     }
-}
+};
 </script>
 
 <style lang="scss" scoped>

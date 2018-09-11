@@ -1,8 +1,10 @@
 <template>
     <div id="app">
-        <Header />
-        <router-view />
-        <Footer />
+        <Header/>
+        <keep-alive>
+            <router-view/>
+        </keep-alive>
+        <Footer/>
     </div>
 </template>
 
@@ -12,9 +14,9 @@ import Footer from "./components/Footer.vue";
 export default {
     name: "App",
     components: {
-      Header, Footer
+        Header, Footer
     }
-}
+};
 </script>
 
 <style lang="scss">
