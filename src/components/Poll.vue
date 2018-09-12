@@ -62,7 +62,7 @@
                         </tr>
                         <tr>
                             <td>Latest Vote:</td>
-                            <td>{{ formatedTimestampes.latestVote }}</td>
+                            <td>{{ totalVotes >= 1 ? formatedTimestampes.latestVote : "No votes yet." }}</td>
                         </tr>
 
                         <tr>
