@@ -4,11 +4,6 @@ import createPersistedState from "vuex-persistedstate";
 
 Vue.use(Vuex);
 
-interface IEditTokenPayload {
-    pollId: number | string;
-    token: string;
-}
-
 class State {
     public userToken: string;
     public pollEditTokens: object;
@@ -24,7 +19,7 @@ export default new Vuex.Store({
         setUserToken(state, tokenString: string) {
             state.userToken = tokenString;
         },
-        addEditToken(state, payload: IEditTokenPayload) {
+        addEditToken(state, payload: {pollId: string | number, token: string}) {
             state.pollEditTokens[String(payload.pollId)] = {
                 token: payload.token,
                 datetime: Date.now(),

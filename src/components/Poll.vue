@@ -202,7 +202,7 @@ export default {
             try {
                 this.status = "Connecting";
                 this.loadingBar.setPercentage(33);
-                this.stream = new EventSource(`http://localhost:3000/poll/${this.$route.params.id}/stream`);
+                this.stream = new EventSource(`${this.api}/poll/${this.$route.params.id}/stream`);
                 this.stream.addEventListener("current", event => {
                     setTimeout(() => this.status = "Connected", 500);
                     this.belongsToRoute = true;

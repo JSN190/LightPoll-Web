@@ -130,7 +130,7 @@ export default {
                     setTimeout(() => event.target.classList.remove("is-loading"), 200);
                     return;
                 }
-                const response = await fetch("http://localhost:3000/poll", {
+                const response = await fetch(`${this.api}/poll`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"
