@@ -80,12 +80,12 @@ export default {
     name: "Create",
     data: getDefaultData,
     methods: {
-        optionPlaceholder: function(index) {
+        optionPlaceholder: function(index): string {
             if (index === 0) return "And then enter an option...";
             else if (index === 1) return "And now another...";
             return "And maybe another...";
         },
-        setCharRestrictEffects: function() {
+        setCharRestrictEffects: function(): void {
             const elements = Array.from(document.getElementsByClassName("140char")) as Array<HTMLElement>;
             for (let element of elements) {
                 autosize(element);
@@ -98,11 +98,11 @@ export default {
                 });
             }
         },
-        accordionClick: function() {
+        accordionClick: function(): void {
             const errorAccordion = document.getElementById("accordion-validation-error") as HTMLElement;
             errorAccordion.classList.toggle("is-active");
         },
-        flushAndPushErrors: function() {
+        flushAndPushErrors: function(): void {
             let errors = new Set(),
                 uniqueOptions = [];
             const emptyOptions = this.options.reduce((acc, e) => String(e).trim().length < 1 ? acc + 1 : acc, 0);
@@ -122,7 +122,7 @@ export default {
             }
             this.errors = Array.from(errors);
         },
-        sendPollAndRetrieveId: async function (event) {
+        sendPollAndRetrieveId: async function (event): Promise<void> {
             try {
                 event.target.classList.add("is-loading");
                 this.flushAndPushErrors();
