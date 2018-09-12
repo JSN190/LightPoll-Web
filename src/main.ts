@@ -8,9 +8,6 @@ Vue.mixin({
         return {
             api: process.env.LPW_API
         };
-    },
-    mounted() {
-        console.log(`Using LightPoll API at ${this.api}`);
     }
 });
 
