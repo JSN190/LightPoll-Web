@@ -26,7 +26,7 @@ export default {
 @import url("https://use.fontawesome.com/releases/v5.3.1/css/all.css");
 @import "./common/basics/style.scss";
 
-body {
+* {
     box-sizing: border-box;
     font-family: 'Roboto', sans-serif;
 }
