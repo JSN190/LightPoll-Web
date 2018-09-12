@@ -86,11 +86,11 @@
     </main>
 </template>
 
-<script>
+<script lang="ts">
 import randomColor from "randomcolor";
 import tinyColor from "tinycolor2";
 import TopLoadingBar from "./TopLoadingBar.vue";
-import flatLoadingBar from "@/common/flat-loading-bar";
+import flatLoadingBar from "../common/flat-loading-bar";
 
 function getDataDefaults() {
     return {
@@ -134,11 +134,11 @@ export default {
         formatedTimestampes() {
             return {
                 created: this.created ? this.created.toLocaleString()
-                .replace(/:([0-9]){2}$/, "").replace(/[0-9]{4},/, match => match.substring(0, 4)) : null,
+                    .replace(/:([0-9]){2}$/, "").replace(/[0-9]{4},/, match => match.substring(0, 4)) : null,
                 modified: this.modified ? this.modified.toLocaleString()
-                .replace(/:([0-9]){2}$/, "").replace(/[0-9]{4},/, match => match.substring(0, 4)) : null,
+                    .replace(/:([0-9]){2}$/, "").replace(/[0-9]{4},/, match => match.substring(0, 4)) : null,
                 latestVote: this.latestVote ? this.latestVote.toLocaleString()
-                .replace(/:([0-9]){2}$/, "").replace(/[0-9]{4},/, match => match.substring(0, 4)) : null
+                    .replace(/:([0-9]){2}$/, "").replace(/[0-9]{4},/, match => match.substring(0, 4)) : null
             };
         }
     },
@@ -155,10 +155,11 @@ export default {
         },
         animateVoteBars: function(delay = 400) {
             setTimeout(() => {
-                const bars = Array.from(document.getElementsByClassName("option-votes-bar-share"));
+                const bars: Array < HTMLElement > = Array.from(document.getElementsByClassName("option-votes-bar-share")) as Array < HTMLElement > ;
                 bars.forEach((bar, index) => {
                     setTimeout(() => {
-                        const label = bar.getElementsByClassName("options-votes-bar-percent")[0];
+                        const label: HTMLElement = bar.getElementsByClassName("options-votes-bar-percent")[0] as HTMLElement;
+                        console.log(label)
                         label.style.setProperty("color", `${tinyColor(bar.style.getPropertyValue("background-color")).isLight() ? "black" : "white"}`);
                         bar.style.setProperty("width", bar.dataset.width);
                     }, (index + 1) * delay);
@@ -187,7 +188,7 @@ export default {
             });
         },
         mountLoadingBar: function() {
-            this.loadingBar = flatLoadingBar.getOnly(document, 200);
+            this.loadingBar = flatLoadingBar.getOnly(document, 300);
         },
         setPollData: function(pollObject) {
             this.name = pollObject.name;
@@ -211,7 +212,7 @@ export default {
                     this.sortOptions();
                     this.assignOptionColours();
                     this.animateVoteBars();
-                    this.loadingBar.finish();
+                    this.loadingBar.finish(400);
                 });
                 this.stream.addEventListener("vote", event => {
                     let data = JSON.parse(event.data);
@@ -224,22 +225,23 @@ export default {
                 this.stream.addEventListener("timeout", () => {
                     this.stream.close();
                     this.status = "Disconnected";
-                    this.loadingBar.finish();
+                    this.loadingBar.finish(400);
                 });
                 this.stream.addEventListener("error", event => {
                     this.stream.close();
                     this.status = event.data ? event.data.includes("not found") ? "Not Found" : "Error" : "Error";
-                    this.loadingBar.finish();
+                    this.loadingBar.finish(400);
                 });
             } catch (e) {
                 this.status = "Error";
-                this.loadingBar.finish();
+                this.loadingBar.finish(400);
             }
         }
     },
     mounted: function() {
         this.mountLoadingBar();
         this.streamPoll();
+        const unused = 434;
     }
 };
 </script>
@@ -293,7 +295,7 @@ main {
                         width: 0;
                         height: 100%;
                         border-radius: 12px;
-                        transition: 200ms ease-in;
+                        transition: 300ms ease-in;
                     }
 
                     .options-votes-bar-percent {

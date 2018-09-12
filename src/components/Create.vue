@@ -62,7 +62,7 @@
     </main>
 </template>
 
-<script>
+<script lang="ts">
 import validator from "validator";
 import autosize from "autosize";
 
@@ -86,11 +86,11 @@ export default {
             return "And maybe another...";
         },
         setCharRestrictEffects: function() {
-            const elements = document.getElementsByClassName("140char");
+            const elements = Array.from(document.getElementsByClassName("140char")) as Array<HTMLElement>;
             for (let element of elements) {
                 autosize(element);
                 element.addEventListener("keydown", event => {
-                    const element = event.target;
+                    const element: HTMLInputElement = event.target as HTMLInputElement;
                     if (element.value.length >= 140) {
                         element.style.setProperty("color", "deeppink");
                         setTimeout(() => element.style.removeProperty("color"), 500);
@@ -99,7 +99,7 @@ export default {
             }
         },
         accordionClick: function() {
-            const errorAccordion = document.getElementById("accordion-validation-error");
+            const errorAccordion = document.getElementById("accordion-validation-error") as HTMLElement;
             errorAccordion.classList.toggle("is-active");
         },
         flushAndPushErrors: function() {
@@ -122,35 +122,35 @@ export default {
             }
             this.errors = Array.from(errors);
         },
-        sendPollAndRetrieveId: function(event) {
-            event.target.classList.add("is-loading");
-            this.flushAndPushErrors();
-            if (this.errors.length > 0) {
-                setTimeout(() => event.target.classList.remove("is-loading"), 200);
-                return;
-            }
-            fetch("http://localhost:3000/poll", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    name: this.name,
-                    options: this.options.filter(e => String(e).trim().length >= 1),
-                    enforceUnique: this.enforceUnique,
-                    anonymous: this.anonymous
+        sendPollAndRetrieveId: async function (event) {
+            try {
+                event.target.classList.add("is-loading");
+                this.flushAndPushErrors();
+                if (this.errors.length > 0) {
+                    setTimeout(() => event.target.classList.remove("is-loading"), 200);
+                    return;
+                }
+                const response = await fetch("http://localhost:3000/poll", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        name: this.name,
+                        options: this.options.filter(e => String(e).trim().length >= 1),
+                        enforceUnique: this.enforceUnique,
+                        anonymous: this.anonymous
+                    })
                 })
-            })
-            .then(res => res.json())
-            .then(data => {
+                const data = await response.json();
                 this.$router.push({ path: `/poll/${data.poll_id}` });
                 Object.assign(this.$data, getDefaultData());
-            })
-            .catch(e => {
+            } catch (e) {
                 console.error(e);
                 this.errors.push("There was an error submitting your poll.");
-            })
-            .finally(() => setTimeout(() => event.target.classList.remove("is-loading"), 200));
+            } finally {
+                setTimeout(() => event.target.classList.remove("is-loading"), 200)
+            }
         }
     },
     watch: {
