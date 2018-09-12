@@ -30,9 +30,9 @@
                 <section class="connection">
                     <div class="connection-badge">
 
-                            <div><i class="fas fa-circle" :style="`color: ${badgeColours[this.status]}`"></i></div>
-                            <div>STREAM {{ this.status.toUpperCase() }}</div>
-                            <div class="connection-badge-reconnect" v-if="status === 'Disconnected' || status === 'Error'" v-on:click="streamPoll">reconnect</div>
+                        <div><i class="fas fa-circle" :style="`color: ${badgeColours[this.status]}`"></i></div>
+                        <div>STREAM {{ this.status.toUpperCase() }}</div>
+                        <div class="connection-badge-reconnect" v-if="status === 'Disconnected' || status === 'Error'" v-on:click="streamPoll">reconnect</div>
 
                     </div>
                     <div class="br-75"></div>
@@ -73,7 +73,7 @@
                             </td>
 
                         </tr>
-                                               <tr>
+                        <tr>
                             <td>Votes:</td>
                             <td>
                                 {{ totalVotes }} total votes
@@ -153,7 +153,7 @@ export default {
                 if (!option.hasOwnProperty("colour")) option.colour = Array.from(colours)[index];
             });
         },
-        animateVoteBars: function(delay=400){
+        animateVoteBars: function(delay = 400) {
             setTimeout(() => {
                 const bars = Array.from(document.getElementsByClassName("option-votes-bar-share"));
                 bars.forEach((bar, index) => {
@@ -164,7 +164,7 @@ export default {
                     }, (index + 1) * delay);
                 });
             }, 50);
-            
+
         },
         mergeOptions: function(newOptions) {
             console.log(newOptions);
@@ -189,6 +189,14 @@ export default {
         mountLoadingBar: function() {
             this.loadingBar = flatLoadingBar.getOnly(document, 200);
         },
+        setPollData: function(pollObject) {
+            this.name = pollObject.name;
+            this.description = pollObject.description;
+            this.created = new Date(pollObject.created);
+            this.modified = new Date(pollObject.modified);
+            this.latestVote = new Date(pollObject.latestVote);
+            this.voters = pollObject.voters ? pollObject.voters : 0;
+        },
         streamPoll: async function() {
             try {
                 this.status = "Connecting";
@@ -198,12 +206,7 @@ export default {
                     setTimeout(() => this.status = "Connected", 500);
                     this.belongsToRoute = true;
                     const data = JSON.parse(event.data);
-                    this.name = data.name;
-                    this.description = data.description;
-                    this.created = new Date(data.created);
-                    this.modified = new Date(data.modified);
-                    this.latestVote = new Date(data.latestVote);
-                    this.voters = data.voters ? data.voters : 0;
+                    this.setPollData(data);
                     this.options = data.options;
                     this.sortOptions();
                     this.assignOptionColours();
@@ -213,11 +216,7 @@ export default {
                 this.stream.addEventListener("vote", event => {
                     let data = JSON.parse(event.data);
                     data = Object.assign(JSON.parse(event.data), { poll: JSON.parse(data.poll) });
-                    this.name = data.poll.name;
-                    this.description = data.poll.description;
-                    this.modified = new Date(data.poll.modified);
-                    this.latestVote = new Date(data.poll.latestVote);
-                    this.voters = data.poll.voters;
+                    this.setPollData(data.poll);
                     this.mergeOptions(data.poll.options);
                     this.sortOptions();
                     this.animateVoteBars();
@@ -229,7 +228,7 @@ export default {
                 });
                 this.stream.addEventListener("error", event => {
                     this.stream.close();
-                    this.status =  event.data ? event.data.includes("not found") ? "Not Found" : "Error" : "Error";
+                    this.status = event.data ? event.data.includes("not found") ? "Not Found" : "Error" : "Error";
                     this.loadingBar.finish();
                 });
             } catch (e) {
@@ -320,28 +319,31 @@ main {
 
     .connection {
         margin-bottom: 10px;
+
         .connection-badge {
-        display: grid;
-        grid-auto-flow: column;
-        grid-gap: 7.5px;
-        width: 100%;
-        align-items: center;
-        justify-content: flex-start;
-        font-size: 14px;
-        letter-spacing: 2px;
-        color: #696969;
-        line-height: 20px;
-        .connection-badge-reconnect {
-            font-size: 10px;
-                    line-height: 0;
+            display: grid;
+            grid-auto-flow: column;
+            grid-gap: 7.5px;
+            width: 100%;
+            align-items: center;
+            justify-content: flex-start;
+            font-size: 14px;
+            letter-spacing: 2px;
+            color: #696969;
+            line-height: 20px;
+
+            .connection-badge-reconnect {
+                font-size: 10px;
+                line-height: 0;
                 text-decoration: underline;
                 text-decoration-style: dotted;
                 color: #696969;
+
                 &:hover {
                     cursor: pointer;
                 }
-        }            
-    }
+            }
+        }
     }
 
     .poll-info {
@@ -352,20 +354,23 @@ main {
             grid-gap: 2px;
             font-size: 14px;
             font-weight: 300;
+
             tr {
                 width: 100%;
-            display: grid;
-            grid-auto-flow: column;
-            grid-template-columns: 2fr 3fr;
-            td {
                 display: grid;
                 grid-auto-flow: column;
-                justify-content: flex-start;
-                &:first-child {
-                font-weight: 400;
+                grid-template-columns: 2fr 3fr;
+
+                td {
+                    display: grid;
+                    grid-auto-flow: column;
+                    justify-content: flex-start;
+
+                    &:first-child {
+                        font-weight: 400;
+                    }
+                }
             }
-            }
-        }
         }
     }
 }
