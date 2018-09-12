@@ -92,27 +92,39 @@ import tinyColor from "tinycolor2";
 import TopLoadingBar from "./TopLoadingBar.vue";
 import flatLoadingBar from "../common/flat-loading-bar";
 
-function getDataDefaults() {
-    return {
-        name: "",
-        description: "",
-        options: [],
-        voters: null,
-        created: null,
-        latestVote: null,
-        modified: null,
-        loadingBar: null,
-        stream: null,
-        status: "Connecting",
-        belongsToRoute: true,
-        badgeColours: {
+class DataSchema {
+    name: string
+    description: string;
+    options: object;
+    voters: number;
+    created: Date | null;
+    modified: Date | null;
+    latestVote: Date | null;
+    status: string;
+    belongsToRoute: boolean;
+    stream: EventSource | null;
+    loadingBar: HTMLElement | null;
+    badgeColours: { [key: string]: string }
+    constructor() {
+        this.name = "";
+        this.description = "";
+        this.options = [];
+        this.voters = 0;
+        this.created = null;
+        this.modified = null;
+        this.latestVote = null;
+        this.status = "Connecting";
+        this.belongsToRoute = false;
+        this.stream = null;
+        this.loadingBar = null;
+        this.badgeColours = {
             "Connected": "hsl(141, 65%, 60%)",
             "Connecting": "hsl(48, 100%, 70%)",
             "Disconnected": "hsl(348, 90%, 61%)",
             "Error": "hsl(348, 90%, 61%)",
-            "Not Found": "hsl(348, 90%, 61%)"
-        }
-    };
+            "Not Found": "hsl(348, 90%, 61%)",
+        };
+    }
 }
 
 export default {
@@ -121,17 +133,19 @@ export default {
     watch: {
         "$route.params.id"() {
             if (this.stream || this.stream.readyState !== 2) this.stream.close();
-            Object.assign(this.$data, getDataDefaults());
+            Object.assign(this.$data, new DataSchema());
             this.mountLoadingBar();
             this.streamPoll();
         }
     },
-    data: getDataDefaults,
+    data: function() {
+        return new DataSchema();
+    },
     computed: {
-        totalVotes() {
+        totalVotes(): number {
             return this.options.reduce((acc, option) => acc + Number(option.votes), 0);
         },
-        formatedTimestampes() {
+        formatedTimestampes(): { [key: string]: string } {
             return {
                 created: this.created ? this.created.toLocaleString()
                     .replace(/:([0-9]){2}$/, "").replace(/[0-9]{4},/, match => match.substring(0, 4)) : null,
@@ -143,17 +157,17 @@ export default {
         }
     },
     methods: {
-        votePercentage: function(votes) {
+        votePercentage: function(votes): number {
             return votes / (this.totalVotes === 0 ? 1 : this.totalVotes);
         },
-        assignOptionColours: function() {
+        assignOptionColours: function(): void {
             let colours = new Set();
             this.options.forEach((option, index) => {
                 do { colours.add(randomColor({ luminosity: "bright" })); } while (colours.size < index + 1);
                 if (!option.hasOwnProperty("colour")) option.colour = Array.from(colours)[index];
             });
         },
-        animateVoteBars: function(delay = 400) {
+        animateVoteBars: function(delay = 400): void {
             setTimeout(() => {
                 const bars: Array < HTMLElement > = Array.from(document.getElementsByClassName("option-votes-bar-share")) as Array < HTMLElement > ;
                 bars.forEach((bar, index) => {
@@ -167,7 +181,7 @@ export default {
             }, 50);
 
         },
-        mergeOptions: function(newOptions) {
+        mergeOptions: function(newOptions): void {
             console.log(newOptions);
             for (let newOption of newOptions) {
                 let amended = false;
@@ -180,25 +194,25 @@ export default {
                 if (!amended) this.options.push(newOption);
             }
         },
-        sortOptions: function() {
+        sortOptions: function(): void {
             this.options.sort((a, b) => {
                 if (a.votes > b.votes) return 1;
                 else if (a.values < b.votes) return -1;
                 else return 0;
             });
         },
-        mountLoadingBar: function() {
+        mountLoadingBar: function(): void {
             this.loadingBar = flatLoadingBar.getOnly(document, 300);
         },
-        setPollData: function(pollObject) {
+        setPollData: function(pollObject): void {
             this.name = pollObject.name;
             this.description = pollObject.description;
             this.created = new Date(pollObject.created);
             this.modified = new Date(pollObject.modified);
             this.latestVote = new Date(pollObject.latestVote);
-            this.voters = pollObject.voters ? pollObject.voters : 0;
+            this.voters = pollObject.voters ? Number(pollObject.voters) : 0;
         },
-        streamPoll: async function() {
+        streamPoll: async function(): Promise<void> {
             try {
                 this.status = "Connecting";
                 this.loadingBar.setPercentage(33);
@@ -241,7 +255,6 @@ export default {
     mounted: function() {
         this.mountLoadingBar();
         this.streamPoll();
-        const unused = 434;
     }
 };
 </script>
@@ -374,6 +387,9 @@ main {
                 }
             }
         }
+    }
+    .fas {
+        color: #d6d6d6;
     }
 }
 
