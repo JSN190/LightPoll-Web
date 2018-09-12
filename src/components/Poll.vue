@@ -167,7 +167,7 @@ export default {
                 if (!option.hasOwnProperty("colour")) option.colour = Array.from(colours)[index];
             });
         },
-        animateVoteBars: function(delay = 400): void {
+        animateVoteBars: function(delay = 100): void {
             setTimeout(() => {
                 const bars: Array < HTMLElement > = Array.from(document.getElementsByClassName("option-votes-bar-share")) as Array < HTMLElement > ;
                 bars.forEach((bar, index) => {
@@ -239,16 +239,16 @@ export default {
                 this.stream.addEventListener("timeout", () => {
                     this.stream.close();
                     this.status = "Disconnected";
-                    this.loadingBar.finish(400);
+                    this.loadingBar.finish();
                 });
                 this.stream.addEventListener("error", event => {
                     this.stream.close();
                     this.status = event.data ? event.data.includes("not found") ? "Not Found" : "Error" : "Error";
-                    this.loadingBar.finish(400);
+                    this.loadingBar.finish();
                 });
             } catch (e) {
                 this.status = "Error";
-                this.loadingBar.finish(400);
+                this.loadingBar.finish();
             }
         }
     },
