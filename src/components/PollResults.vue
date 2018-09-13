@@ -14,7 +14,7 @@
                     </div>
                 </div>
                 <div class="option-votes">
-                    {{ option.votes > 0 ? option.votes + " people voted for this option." : "Nobody has voted for this option yet." }}
+                    {{ option.votes > 0 ? option.votes + (option.votes > 1 ? " people" : " person") + " voted for this option." : "Nobody has voted for this option yet." }}
                 </div>
             </div>
         </div>

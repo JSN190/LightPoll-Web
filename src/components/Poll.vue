@@ -56,7 +56,7 @@
                         <tr>
                             <td>Votes:</td>
                             <td>
-                                {{ totalVotes }} total votes
+                                {{ totalVotes }} votes
                             </td>
                         </tr>
                     </table>
