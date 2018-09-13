@@ -3,28 +3,8 @@
         <TopLoadingBar />
         <div class="columns">
             <div class="column  is-two-thirds">
-                <div id="main-poll-card" class="card" v-if="name && belongsToRoute">
-                    <header class="card-header">
-                        {{ name }}
-                    </header>
-                    <div class="card-content">
-                        <div class="card-option" v-for="option in options" :key="option.value">
-                            <header>
-                                <span class="option-value">{{ option.value }}</span>
-                            </header>
-                            <div class="option-votes-bar">
-                                <div class="option-votes-bar-share" :data-width="`${(votePercentage(option.votes) * 100)}%`" :style="`background-color: ${option.votes ? option.colour : '#F0F0F0'};`">
-                                    <div class="options-votes-bar-percent">{{ (votePercentage(option.votes) * 100).toFixed(0) }}%</div>
-                                </div>
-                            </div>
-                            <div class="option-votes">
-                                {{ option.votes > 0 ? option.votes + " people voted for this option." : "Nobody has voted for this option yet." }}
-                            </div>
-                        </div>
-                    </div>
-                    <footer class="card-footer">
-                    </footer>
-                </div>
+                <router-view :pollName="name" :description="description" :options="options"
+                :loadingBar="loadingBar"></router-view>
             </div>
             <div class="column is-one-third">
                 <section class="connection">
@@ -159,28 +139,7 @@ export default {
         votePercentage: function(votes) {
             return votes / (this.totalVotes === 0 ? 1 : this.totalVotes);
         },
-        assignOptionColours: function() {
-            let colours = new Set();
-            this.options.forEach((option, index) => {
-                do { colours.add(randomColor({ luminosity: "bright" })); } while (colours.size < index + 1);
-                if (!option.hasOwnProperty("colour")) option.colour = Array.from(colours)[index];
-            });
-        },
-        animateVoteBars: function(delay = 100) {
-            setTimeout(() => {
-                const bars = Array.from(document.getElementsByClassName("option-votes-bar-share"));
-                bars.forEach((bar, index) => {
-                    setTimeout(() => {
-                        const label = bar.getElementsByClassName("options-votes-bar-percent")[0];
-                        label.style.setProperty("color", `${tinyColor(bar.style.getPropertyValue("background-color")).isLight() ? "black" : "white"}`);
-                        bar.style.setProperty("width", bar.dataset.width);
-                    }, (index + 1) * delay);
-                });
-            }, 50);
-
-        },
         mergeOptions: function(newOptions) {
-            console.log(newOptions);
             for (let newOption of newOptions) {
                 let amended = false;
                 for (let index in this.options) {
@@ -191,13 +150,6 @@ export default {
                 }
                 if (!amended) this.options.push(newOption);
             }
-        },
-        sortOptions: function() {
-            this.options.sort((a, b) => {
-                if (a.votes > b.votes) return 1;
-                else if (a.values < b.votes) return -1;
-                else return 0;
-            });
         },
         mountLoadingBar: function() {
             this.loadingBar = flatLoadingBar.getOnly(document, 300);
@@ -231,9 +183,6 @@ export default {
                     const data = JSON.parse(event.data);
                     this.setPollData(data);
                     this.options = data.options;
-                    this.sortOptions();
-                    this.assignOptionColours();
-                    this.animateVoteBars();
                     this.loadingBar.finish(400);
                 });
                 this.stream.addEventListener("vote", event => {
@@ -241,8 +190,6 @@ export default {
                     data = Object.assign(JSON.parse(event.data), { poll: JSON.parse(data.poll) });
                     this.setPollData(data.poll);
                     this.mergeOptions(data.poll.options);
-                    this.sortOptions();
-                    this.animateVoteBars();
                 });
                 this.stream.addEventListener("timeout", () => {
                     this.stream.close();
@@ -270,75 +217,6 @@ export default {
 <style lang="scss" scoped>
 main {
     padding: 25px 0px 25px 0px;
-
-    #main-poll-card {
-        border: 0.5px solid #F0F0F0;
-        border-radius: 4px;
-        box-shadow: 1px 1px 10px #F0F0F0;
-
-
-        .card-header {
-            padding: 10px 15px 10px 15px;
-            font-size: 24px;
-            font-weight: 500;
-            color: #181818;
-        }
-
-        .card-content {
-
-            display: grid;
-            grid-auto-flow: rows;
-            grid-gap: 5px;
-            padding: 10px 15px 10px 15px;
-
-            .card-option {
-                header {
-                    padding-left: 5px;
-                    font-size: 20px;
-                    color: #404040;
-                    font-weight: 500;
-
-                }
-
-                .option-votes-bar {
-                    margin-top: 5px;
-                    height: 27.5px;
-                    width: 100%;
-                    border-radius: 1px;
-                    box-sizing: content-box;
-                    background-color: #F0F0F0;
-                    overflow: hidden;
-                    line-height: 0px;
-
-                    .option-votes-bar-share {
-                        display: flex;
-                        align-items: center;
-                        width: 0;
-                        height: 100%;
-                        border-radius: 12px;
-                        transition: 300ms ease-in;
-                    }
-
-                    .options-votes-bar-percent {
-                        position: relative;
-                        left: 17.5px;
-                        font-size: 14px;
-                        font-weight: 500;
-                        transition: 500ms ease-in;
-                    }
-                }
-
-                .option-votes {
-                    margin-top: 5px;
-                    padding-left: 5px;
-                    font-size: 14px;
-                    color: #808080;
-
-                }
-            }
-
-        }
-    }
 
     .columns:nth-child(2) {
         section {

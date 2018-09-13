@@ -24,6 +24,7 @@ export default {
 @import url("https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css");
 @import url('https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i');
 @import url("https://use.fontawesome.com/releases/v5.3.1/css/all.css");
+//@import url("https://cdn.jsdelivr.net/npm/pretty-checkbox@3.0/dist/pretty-checkbox.min.css");
 @import "./common/basics/style.scss";
 
 * {

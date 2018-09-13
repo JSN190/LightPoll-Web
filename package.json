@@ -12,6 +12,7 @@
     "autosize": "^4.0.2",
     "bulma": "^0.7.1",
     "bulma-extensions": "^3.0.0",
+    "pretty-checkbox": "^3.0.3",
     "randomcolor": "^0.5.3",
     "tinycolor2": "^1.4.1",
     "ts-loader": "^3.5.0",
