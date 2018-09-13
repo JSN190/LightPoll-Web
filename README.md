@@ -14,7 +14,9 @@ Before building the static files, ensure that you have all the required dependen
 
 ### Environment Variables
 
-The environment variable `LPW_API` should be be pointing to where your instance of the backend is installed. 
+- `LPW_API`: The URL pointing to where your instance of the backend is installed.
+- `LPW_URL` The URL pointing to where you will host LightPoll Web.
+- `LPW_HIST`: Whether to enable (`1`) or disable (`0`) Vue Router history mode.
 
 This project leverages [`vue init webpack`](https://github.com/vuejs-templates/webpack) for its Webpack configuration. To build using the `npm run build` script or to set parameters for development, use the `*.env.js` files in `/config`.
 
