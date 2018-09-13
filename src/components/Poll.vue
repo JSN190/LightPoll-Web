@@ -78,8 +78,6 @@
 </template>
 
 <script>
-import randomColor from "randomcolor";
-import tinyColor from "tinycolor2";
 import TopLoadingBar from "./TopLoadingBar.vue";
 import flatLoadingBar from "../common/flat-loading-bar";
 
