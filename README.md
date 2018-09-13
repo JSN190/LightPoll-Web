@@ -6,7 +6,7 @@
 
 LightPoll Web is the canonical frontend for the LightPoll web application which facilites rapid creation and distribution of online web polls. 
 
-It is written using the Vue.js framework, with TypeScript, JavaScript, SCSS, and Webpack being its main driving forces. Currently, LightPoll is a work in progress but the API is more or less near completion and the frontend is rapidly being developed.
+It is written using the Vue.js framework, with JavaScript, SCSS, and Webpack being its main driving forces. Currently, LightPoll is a work in progress but the API is more or less near completion and the frontend is rapidly being developed.
 
 ## Configuration
 

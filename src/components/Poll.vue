@@ -86,44 +86,32 @@
     </main>
 </template>
 
-<script lang="ts">
+<script>
 import randomColor from "randomcolor";
 import tinyColor from "tinycolor2";
 import TopLoadingBar from "./TopLoadingBar.vue";
 import flatLoadingBar from "../common/flat-loading-bar";
 
-class DataSchema {
-    name: string
-    description: string;
-    options: object;
-    voters: number;
-    created: Date | null;
-    modified: Date | null;
-    latestVote: Date | null;
-    status: string;
-    belongsToRoute: boolean;
-    stream: EventSource | null;
-    loadingBar: HTMLElement | null;
-    badgeColours: { [key: string]: string }
-    constructor() {
-        this.name = "";
-        this.description = "";
-        this.options = [];
-        this.voters = 0;
-        this.created = null;
-        this.modified = null;
-        this.latestVote = null;
-        this.status = "Connecting";
-        this.belongsToRoute = false;
-        this.stream = null;
-        this.loadingBar = null;
-        this.badgeColours = {
+function dataSchema() {
+    return {
+        name: "",
+        description: "",
+        options: [],
+        voters: 0,
+        created: null,
+        modified: null,
+        latestVote: null,
+        status: "Connecting",
+        belongsToRoute: false,
+        stream: null,
+        loadingBar: null,
+        badgeColours: {
             "Connected": "hsl(141, 65%, 60%)",
             "Connecting": "hsl(48, 100%, 70%)",
             "Disconnected": "hsl(348, 90%, 61%)",
             "Error": "hsl(348, 90%, 61%)",
-            "Not Found": "hsl(348, 90%, 61%)",
-        };
+            "Not Found": "hsl(348, 90%, 61%)"
+        }
     }
 }
 
@@ -133,19 +121,19 @@ export default {
     watch: {
         "$route.params.id"() {
             if (this.stream || this.stream.readyState !== 2) this.stream.close();
-            Object.assign(this.$data, new DataSchema());
+            Object.assign(this.$data, dataSchema());
             this.mountLoadingBar();
             this.streamPoll();
         }
     },
     data: function() {
-        return new DataSchema();
+        return dataSchema();
     },
     computed: {
-        totalVotes(): number {
+        totalVotes() {
             return this.options.reduce((acc, option) => acc + Number(option.votes), 0);
         },
-        formatedTimestampes(): { [key: string]: string } {
+        formatedTimestampes() {
             return {
                 created: this.created ? this.created.toLocaleString()
                     .replace(/:([0-9]){2}$/, "").replace(/[0-9]{4},/, match => match.substring(0, 4)) : null,
@@ -157,22 +145,22 @@ export default {
         }
     },
     methods: {
-        votePercentage: function(votes): number {
+        votePercentage: function(votes) {
             return votes / (this.totalVotes === 0 ? 1 : this.totalVotes);
         },
-        assignOptionColours: function(): void {
+        assignOptionColours: function() {
             let colours = new Set();
             this.options.forEach((option, index) => {
                 do { colours.add(randomColor({ luminosity: "bright" })); } while (colours.size < index + 1);
                 if (!option.hasOwnProperty("colour")) option.colour = Array.from(colours)[index];
             });
         },
-        animateVoteBars: function(delay = 100): void {
+        animateVoteBars: function(delay = 100) {
             setTimeout(() => {
-                const bars: Array < HTMLElement > = Array.from(document.getElementsByClassName("option-votes-bar-share")) as Array < HTMLElement > ;
+                const bars = Array.from(document.getElementsByClassName("option-votes-bar-share"));
                 bars.forEach((bar, index) => {
                     setTimeout(() => {
-                        const label: HTMLElement = bar.getElementsByClassName("options-votes-bar-percent")[0] as HTMLElement;
+                        const label = bar.getElementsByClassName("options-votes-bar-percent")[0];
                         console.log(label)
                         label.style.setProperty("color", `${tinyColor(bar.style.getPropertyValue("background-color")).isLight() ? "black" : "white"}`);
                         bar.style.setProperty("width", bar.dataset.width);
@@ -181,7 +169,7 @@ export default {
             }, 50);
 
         },
-        mergeOptions: function(newOptions): void {
+        mergeOptions: function(newOptions) {
             console.log(newOptions);
             for (let newOption of newOptions) {
                 let amended = false;
@@ -194,17 +182,17 @@ export default {
                 if (!amended) this.options.push(newOption);
             }
         },
-        sortOptions: function(): void {
+        sortOptions: function() {
             this.options.sort((a, b) => {
                 if (a.votes > b.votes) return 1;
                 else if (a.values < b.votes) return -1;
                 else return 0;
             });
         },
-        mountLoadingBar: function(): void {
+        mountLoadingBar: function() {
             this.loadingBar = flatLoadingBar.getOnly(document, 300);
         },
-        setPollData: function(pollObject): void {
+        setPollData: function(pollObject) {
             this.name = pollObject.name;
             this.description = pollObject.description;
             this.created = new Date(pollObject.created);
@@ -212,7 +200,7 @@ export default {
             this.latestVote = new Date(pollObject.latestVote);
             this.voters = pollObject.voters ? Number(pollObject.voters) : 0;
         },
-        streamPoll: async function(): Promise<void> {
+        streamPoll: async function() {
             try {
                 this.status = "Connecting";
                 this.loadingBar.setPercentage(33);

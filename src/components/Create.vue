@@ -62,7 +62,7 @@
     </main>
 </template>
 
-<script lang="ts">
+<script>
 import validator from "validator";
 import autosize from "autosize";
 
@@ -80,17 +80,17 @@ export default {
     name: "Create",
     data: getDefaultData,
     methods: {
-        optionPlaceholder: function(index): string {
+        optionPlaceholder: function(index) {
             if (index === 0) return "And then enter an option...";
             else if (index === 1) return "And now another...";
             return "And maybe another...";
         },
-        setCharRestrictEffects: function(): void {
-            const elements = Array.from(document.getElementsByClassName("140char")) as Array<HTMLElement>;
+        setCharRestrictEffects: function() {
+            const elements = Array.from(document.getElementsByClassName("140char"));
             for (let element of elements) {
                 autosize(element);
                 element.addEventListener("keydown", event => {
-                    const element: HTMLInputElement = event.target as HTMLInputElement;
+                    const element = event.target;
                     if (element.value.length >= 140) {
                         element.style.setProperty("color", "deeppink");
                         setTimeout(() => element.style.removeProperty("color"), 500);
@@ -98,11 +98,11 @@ export default {
                 });
             }
         },
-        accordionClick: function(): void {
-            const errorAccordion = document.getElementById("accordion-validation-error") as HTMLElement;
+        accordionClick: function() {
+            const errorAccordion = document.getElementById("accordion-validation-error");
             errorAccordion.classList.toggle("is-active");
         },
-        flushAndPushErrors: function(): void {
+        flushAndPushErrors: function() {
             let errors = new Set(),
                 uniqueOptions = [];
             const emptyOptions = this.options.reduce((acc, e) => String(e).trim().length < 1 ? acc + 1 : acc, 0);
@@ -122,7 +122,7 @@ export default {
             }
             this.errors = Array.from(errors);
         },
-        sendPollAndRetrieveId: async function (event): Promise<void> {
+        sendPollAndRetrieveId: async function(event) {
             try {
                 event.target.classList.add("is-loading");
                 this.flushAndPushErrors();

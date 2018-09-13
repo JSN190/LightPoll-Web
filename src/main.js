@@ -1,10 +1,10 @@
-import Vue, { ComponentOptions } from "vue";
+import Vue from "vue";
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 
 Vue.mixin({
-    data() {
+    data: function() {
         return {
             api: process.env.LPW_API
         };

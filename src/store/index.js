@@ -4,28 +4,22 @@ import createPersistedState from "vuex-persistedstate";
 
 Vue.use(Vuex);
 
-class State {
-    public userToken: string;
-    public pollEditTokens: object;
-    constructor() {
-        this.userToken = "";
-        this.pollEditTokens = new Object();
-    }
-}
-
 export default new Vuex.Store({
-    state: new State(),
+    state: {
+        userToken: null,
+        pollEditTokens: {}
+    },
     mutations: {
-        setUserToken(state, tokenString: string) {
-            state.userToken = tokenString;
+        setUserToken(state, token) {
+            state.userToken = token;
         },
-        addEditToken(state, payload: {pollId: string | number, token: string}) {
+        addEditToken(state, payload) {
             state.pollEditTokens[String(payload.pollId)] = {
                 token: payload.token,
                 datetime: Date.now(),
             };
         },
-        removeEditToken(state, pollId: number) {
+        removeEditToken(state, pollId) {
             delete state.pollEditTokens[pollId];
         },
     },
