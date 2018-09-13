@@ -14,7 +14,7 @@
                     <div class="navbar-end">
                         <a class="navbar-item">Register</a>
                         <a class="navbar-item is-hidden-desktop">Login</a>
-                        <div class="is-hidden-touch"><a class="button is-success is-outlined is-rounded">Login</a></div>
+                        <div class="is-hidden-touch"><a class="button is-outlined">Login</a></div>
                     </div>
                 </div>
             </div>

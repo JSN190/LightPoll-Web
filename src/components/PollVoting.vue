@@ -153,7 +153,7 @@ $pretty--color-success: hsl(0, 0%, 60%);
             }
 
             i {
-                color: rgb(223, 223, 223);
+                color: rgb(173, 173, 173);
                 font-size: 13.5px;
             }
         }
@@ -162,7 +162,7 @@ $pretty--color-success: hsl(0, 0%, 60%);
             &:nth-child(n+0) {
                 height: 100%;
                 width: 100%;
-                color: rgb(110, 110, 110);
+                color: rgb(88, 88, 88);
                 font-size: 15.5px;
                 transition: 120ms ease-in-out;
             }
@@ -172,7 +172,7 @@ $pretty--color-success: hsl(0, 0%, 60%);
             }
 
             a {
-                color: rgb(110, 110, 110);
+                color: rgb(88, 88, 88);
             }
         }
     }
