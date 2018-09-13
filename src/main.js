@@ -6,7 +6,8 @@ import store from "./store";
 Vue.mixin({
     data: function() {
         return {
-            api: process.env.LPW_API
+            api: process.env.LPW_API.replace(/\/$/, ""),
+            url: process.env.LPW_URL.replace(/\/$/, "")
         };
     }
 });
