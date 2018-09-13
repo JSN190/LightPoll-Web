@@ -143,6 +143,10 @@ export default {
                     })
                 })
                 const data = await response.json();
+                this.$store.commit("addEditToken", {
+                    pollId: data.poll_id,
+                    token: data.editToken,
+                });
                 this.$router.push({ path: `/poll/${data.poll_id}` });
                 Object.assign(this.$data, getDefaultData());
             } catch (e) {

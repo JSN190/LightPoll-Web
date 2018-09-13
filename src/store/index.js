@@ -1,5 +1,5 @@
 import Vue from "vue";
-import { default as Vuex, mapActions } from "vuex";
+import { default as Vuex } from "vuex";
 import createPersistedState from "vuex-persistedstate";
 
 Vue.use(Vuex);
@@ -22,9 +22,6 @@ export default new Vuex.Store({
         removeEditToken(state, pollId) {
             delete state.pollEditTokens[pollId];
         },
-    },
-    actions: {
-        ...mapActions(["setUserToken", "addEditToken", "removeEditToken"]),
     },
     plugins: [createPersistedState()],
 });
