@@ -214,7 +214,7 @@ export default {
 
 <style lang="scss" scoped>
 main {
-    padding: 25px 0px 25px 0px;
+    padding: 15px 0px 25px 0px;
 
     .columns:nth-child(2) {
         section {

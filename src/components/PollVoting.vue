@@ -63,7 +63,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-$pretty--color-success: hsl(0, 0%, 60%);
+$pretty--color-success: #209cee;
 @import '~pretty-checkbox/src/scss/variables';
 @import '~pretty-checkbox/src/scss/elements/default/outline';
 @import '~pretty-checkbox/src/scss/core';

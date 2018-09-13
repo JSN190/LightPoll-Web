@@ -1,9 +1,11 @@
 <template>
     <header>
-        <nav class="navbar has-shadow is-fixed-top">
+        <nav class="navbar is-fixed-top">
             <div class="container">
                 <div class="navbar-brand">
-                    <router-link to="/" id="header-nav-logo" class="button is-white">LightPoll</router-link>
+                    <div class="navbar-logo-container">
+                        <router-link to="/" id="header-nav-logo" class="logo"><i class="fas fa-bolt"></i>&nbsp;LightPoll</router-link>
+                    </div>
                     <a role="button" class="navbar-burger is-flex-mobile" data-target="header-nav-menu" aria-label="menu" aria-expanded="false">
                         <span aria-hidden="true"></span>
                         <span aria-hidden="true"></span>
@@ -49,7 +51,6 @@ export default {
 
 header {
     height: 60px;
-    box-shadow: 0px 0px 15px #F0F0F0;
 
     nav {
         height: 60px;
@@ -62,15 +63,27 @@ header {
     .navbar-brand {
         height: 100%;
 
+        .navbar-logo-container {
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
         #header-nav-logo {
             font-family: "Arimo";
-            display: flex;
-            align-items: center;
-            font-size: 25px;
-            padding-left: 15px;
-            padding-right: 15px;
-            border-radius: 0;
-            height: 100%;
+            font-size: 24px;
+            font-weight: 700;
+            color: #686868;
+            padding: 5px;
+            border-radius: 5px;
+            margin-left: 10px;
+            &:hover {
+                background-color: rgb(249, 249, 249);
+            }
+            &:active {
+                background-color: rgb(245, 245, 245);
+            }
         }
 
         .navbar-burger {
