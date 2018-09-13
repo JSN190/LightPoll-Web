@@ -218,7 +218,7 @@ export default {
             this.created = new Date(pollObject.created);
             this.modified = new Date(pollObject.modified);
             this.latestVote = new Date(pollObject.latestVote);
-            this.voters = pollObject.voters ? Number(pollObject.voters) : 0;
+            this.voters = pollObject.voters ? pollObject.voters : 0;
         },
         streamPoll: async function() {
             try {
