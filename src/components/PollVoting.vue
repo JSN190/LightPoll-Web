@@ -16,8 +16,8 @@
             </form>
         </div>
         <footer class="card-footer">
-            <div v-on:click="submitVote"><span>Cast your vote</span></div>
-            <div v-on:click="loadingBar.finish()"><router-link :to="`/poll/${$route.params.id}/results`">View results now</router-link></div>
+            <div v-on:click="submitVote" class="footer-container"><i class="far fa-paper-plane"></i><span>Cast my vote</span></div>
+            <div v-on:click="loadingBar.finish()"><router-link :to="`/poll/${$route.params.id}/results`" class="footer-container"><i class="fas fa-table"></i><span>View the results</span></router-link></div>
         </footer>
     </div>
 </template>
@@ -120,6 +120,10 @@ $pretty--color-success: hsl(0, 0%, 60%);
                     background-color: rgb(249, 249, 249);
                     cursor: pointer;
                 }
+
+                &:active {
+                    background-color: #F2F2F2;
+                }
             }
         }
     }
@@ -130,34 +134,46 @@ $pretty--color-success: hsl(0, 0%, 60%);
         height: 50px;
         border-top: 0;
 
-        div {
+        .footer-container {
+            display: grid;
+            grid-auto-flow: column;
+            grid-gap: 5px;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
             width: 100%;
 
-            * {
-                width: 100%;
+            &:hover {
+                background-color: hsl(0, 0%, 98%);
+                cursor: pointer;
+            }
+
+            &:active {
+                background-color: #F5F5F5;
+            }
+
+            i {
+                color: rgb(223, 223, 223);
+                font-size: 13.5px;
+            }
+        }
+
+        div {
+            &:nth-child(n+0) {
                 height: 100%;
-                display: inline-flex;
-                justify-content: center;
-                align-items: center;
-                color: rgb(92, 92, 92);
+                width: 100%;
+                color: rgb(110, 110, 110);
                 font-size: 15.5px;
                 transition: 120ms ease-in-out;
-
-                &:hover {
-                    background-color: hsl(0, 0%, 98%);
-                    cursor: pointer;
-                }
-
-                &:active {
-                    background-color: #F5F5F5;
-                }
-
             }
 
             &:nth-child(n+2) {
                 border-left: 1px solid #F0F0F0;
             }
 
+            a {
+                color: rgb(110, 110, 110);
+            }
         }
     }
 }

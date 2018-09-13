@@ -45,6 +45,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import url('https://fonts.googleapis.com/css?family=Arimo');
+
 header {
     height: 60px;
     box-shadow: 0px 0px 15px #F0F0F0;
@@ -61,10 +63,10 @@ header {
         height: 100%;
 
         #header-nav-logo {
+            font-family: "Arimo";
             display: flex;
             align-items: center;
-            font-weight: bold;
-            font-size: 32px;
+            font-size: 25px;
             padding-left: 15px;
             padding-right: 15px;
             border-radius: 0;
