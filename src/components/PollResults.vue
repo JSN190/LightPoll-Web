@@ -78,7 +78,7 @@ export default {
             }, 50);
         },
         respond: function(resetColours) {
-            this.localOptions = this.options;
+            this.localOptions = Object.create(this.options);
             this.localOptions.sort((a, b) => b.votes - a.votes);
             this.assignOptionColours(resetColours);
             this.animateVoteBars();
