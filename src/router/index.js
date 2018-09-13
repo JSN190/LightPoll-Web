@@ -6,7 +6,8 @@ import Poll from "../components/Poll.vue";
 Vue.use(Router);
 
 export default new Router({
-    routes: [
+    mode: process.env.LPW_HIST === 1 ? "history" : "hash",
+    routes: [ 
         { path: "/", component: Create, name: "Create" },
         { path: "/poll/:id", component: Poll, name: "Poll" }
     ]
