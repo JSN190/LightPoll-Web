@@ -4,7 +4,7 @@
         <div class="columns">
             <div class="column  is-two-thirds">
                 <router-view :pollName="name" :description="description" :options="options"
-                :loadingBar="loadingBar"></router-view>
+                :loadingBar="loadingBar" v-if="belongsToRoute"></router-view>
             </div>
             <div class="column is-one-third">
                 <section class="connection">
