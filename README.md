@@ -24,7 +24,8 @@ This project leverages [`vue init webpack`](https://github.com/vuejs-templates/w
 
 ### Output
 
-Webpack will build your static assets to the directory `/dist`. Everything needed to deploy to a production server will be available there.
+Webpack will build your static assets to the directory `/dist`. All resources needed to deploy to a production server can be
+copied over from this directory.
 
 ## License
 ```
