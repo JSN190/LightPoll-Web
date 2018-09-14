@@ -4,9 +4,11 @@
 ![Top Language](https://img.shields.io/github/languages/top/JSN190/LightPollWeb.svg?&style=flat-square)
 ![Website Uptime](https://img.shields.io/website-up-down-green-red/http/www.lightpoll.org.svg?label=lightpoll.org&style=flat-square)
 
-LightPoll Web is the canonical frontend for the LightPoll web application which facilites rapid creation and distribution of online web polls.
+LightPoll Web is a frontend for the [LightPoll](https://github.com/JSN190/LightPoll) web application which 
+facilites rapid creation and distribution of realtime online web polls.
 
-It is written using the Vue.js framework, with JavaScript, SCSS, and Webpack being its main driving forces. Currently, LightPoll is a work in progress but the API is more or less near completion and the frontend is rapidly being developed.
+It is written using the Vue.js framework, also utilising SCSS and Webpack. Currently, LightPoll is pre-release but the 
+core functionality has been implemented. Its API is also approaching completion.
 
 ![Create poll](https://i.imgur.com/0qZlqLj.png)
 
