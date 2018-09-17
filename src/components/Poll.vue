@@ -67,7 +67,7 @@
                     Use the following URL to share this poll.
                     <div class="br-50"></div>
                     <div class="link-set">
-                        <input type="text" class="sharing-url" v-on:click="shareEventHandler" 
+                        <input type="text" class="sharing-url" v-on:click="shareEventHandler" readonly="true" 
                         v-on:keypress="shareEventHandler" :value="`${url}/poll/${$route.params.id}`" spellcheck="false">
                         <button class="sharing-copy" v-on:click="copyShareUrl">copy</button>
                     </div>

@@ -18,6 +18,11 @@
                 </div>
             </div>
         </div>
+        <div class="card-footer">
+            <div>
+                <router-link class="footer-container" :to="`/poll/${$route.params.id}/`"><i class="fas fa-arrow-left">&nbsp;</i><span>Back to voting</span></router-link>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -108,6 +113,7 @@ export default {
         grid-auto-flow: rows;
         grid-gap: 5px;
         padding: 10px 15px 20px 15px;
+        border-bottom: 1px solid#F0F0F0;
 
         .card-option {
             header {
@@ -155,6 +161,55 @@ export default {
             }
         }
 
+    }
+
+    .card-footer {
+        display: flex;
+        width: 100%;
+        height: 50px;
+        border-top: 0;
+
+        .footer-container {
+            display: grid;
+            grid-auto-flow: column;
+            grid-gap: 5px;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            width: 100%;
+
+            &:hover {
+                background-color: hsl(0, 0%, 98%);
+                cursor: pointer;
+            }
+
+            &:active {
+                background-color: #F5F5F5;
+            }
+
+            i {
+                color: rgb(173, 173, 173);
+                font-size: 13.5px;
+            }
+        }
+
+        div {
+            &:nth-child(n+0) {
+                height: 100%;
+                width: 100%;
+                color: rgb(88, 88, 88);
+                font-size: 15.5px;
+                transition: 120ms ease-in-out;
+            }
+
+            &:nth-child(n+2) {
+                border-left: 1px solid #F0F0F0;
+            }
+
+            a {
+                color: rgb(88, 88, 88);
+            }
+        }
     }
 }
 </style>
