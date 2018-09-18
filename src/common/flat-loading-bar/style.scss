@@ -4,7 +4,7 @@
     border-radius: 0 20px 50px 0;
     box-shadow: 0px 0px 3px hsl(141, 25%, 47.9%);
     background-color: #23d160;
-    transition: 1000ms ease-in-out;
+    transition: width 1000ms ease-in-out, opacity 1000ms ease-in-out;
 }
 
 .top-loading-bar-container {

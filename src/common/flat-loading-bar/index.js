@@ -3,7 +3,8 @@ export default class {
         this.element = element;
         this.queueDelay = 0;
         this.transitionDelay = transitionDelay;
-        this.element.style.setProperty("transition", `${this.transitionDelay}ms ease-in-out`);
+        this.element.style.setProperty("transition", `width ${this.transitionDelay}ms ease-in-out, 
+            opacity ${this.transitionDelay}ms ease-in-out`);
         setInterval(() => { if (this.queueDelay > 50) this.queueDelay -= 50; }, 50);
     }
 
@@ -19,7 +20,8 @@ export default class {
 
     disappear(customDelay = this.transitionDelay) {
         this.postToQueue(() => {
-            this.element.style.setProperty("transition", `${customDelay}ms ease-in-out`);
+            this.element.style.setProperty("transition", `width ${this.transitionDelay}ms ease-in-out, 
+                opacity ${this.transitionDelay}ms ease-in-out`);
             this.element.style.setProperty("opacity", "0");
         }, customDelay);
         this.postToQueue(() => this.element.style.setProperty("transition", 
@@ -32,7 +34,8 @@ export default class {
             this.element.style.setProperty("width", "0px");
             this.element.style.setProperty("opacity", "100");
         }), customDelay;
-        this.postToQueue(() => this.element.style.setProperty("transition", `${this.transitionDelay}ms ease-in-out`), customDelay);
+        this.postToQueue(() => this.element.style.setProperty("transition", `width ${this.transitionDelay}ms ease-in-out, 
+            opacity ${this.transitionDelay}ms ease-in-out`), customDelay);
     }
 
     restore(customDelay = this.transitionDelay) {

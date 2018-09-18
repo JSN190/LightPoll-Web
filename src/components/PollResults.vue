@@ -100,6 +100,9 @@ export default {
     border: 0.5px solid #F0F0F0;
     border-radius: 4px;
     box-shadow: 1px 1px 10px #F0F0F0;
+    overflow: hidden;
+    animation-name: slidein;
+    animation-duration: 175ms;
 
     .card-header {
         padding: 10px 15px 10px 15px;
@@ -140,7 +143,7 @@ export default {
                     width: 0;
                     height: 100%;
                     border-radius: 12px;
-                    transition: 300ms ease-in;
+                    transition: width 300ms ease-in;
                 }
 
                 .options-votes-bar-percent {
@@ -148,7 +151,7 @@ export default {
                     left: 17.5px;
                     font-size: 14px;
                     font-weight: 500;
-                    transition: 500ms ease-in;
+                    transition: width 500ms ease-in;
                 }
             }
 
@@ -199,7 +202,7 @@ export default {
                 width: 100%;
                 color: rgb(88, 88, 88);
                 font-size: 15.5px;
-                transition: 120ms ease-in-out;
+                transition: background-color 120ms ease-in-out;
             }
 
             &:nth-child(n+2) {
@@ -210,6 +213,16 @@ export default {
                 color: rgb(88, 88, 88);
             }
         }
+    }
+}
+
+@keyframes slidein {
+    0% {
+        height: 0%;
+    }
+
+    100% {
+        height: 100%;
     }
 }
 </style>

@@ -112,7 +112,7 @@ $pretty--color-success: #209cee;
 
                 padding: 7.5px;
                 border-radius: 5px;
-                transition: 50ms ease-in-out;
+                transition: background-color 50ms ease-in-out;
                 font-weight: bold;
 
                 &:hover,
@@ -164,7 +164,7 @@ $pretty--color-success: #209cee;
                 width: 100%;
                 color: rgb(88, 88, 88);
                 font-size: 15.5px;
-                transition: 120ms ease-in-out;
+                transition: background-color 120ms ease-in-out;
             }
 
             &:nth-child(n+2) {
