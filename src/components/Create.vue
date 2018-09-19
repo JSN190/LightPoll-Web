@@ -17,7 +17,7 @@
                                     <div class="accordion-header toggle" v-on:click="accordionClick">
                                         <p>{{ errors.length }} error{{errors.length > 1 ? 's' : '' }}.</p>
                                         <span class="icon is-small">
-                                            <i class="fas fa-angle-down" aria-hidden="true"></i>
+                                            <i class="fas fa-angle-down"></i>
                                         </span>
                                     </div>
                                     <div class="accordion-body">
@@ -220,7 +220,7 @@ main {
             .accordion-header {
                 border-radius: 0;
                 background-color: white;
-                color: #ff2861;
+                color: rgb(255, 110, 110);
             }
             .accordion-body {
                 border-bottom: 0;
@@ -228,12 +228,15 @@ main {
                 border: 0;
                 .accordion-content {
                     border: 0.5px solid #F9FAF9;
-                    border-radius: 7.5px;
+                    border-radius: 2px;
                     padding: 5px 10px 5px 10px;
                     margin: 0px 10px 7px 10px;
                     border-bottom: 1px solid #F0F0F0;
-                    background-color: #FDFDFD;
+                    background-color: #ffffff;
                 }
+            }
+            .fa-exclamation-triangle {
+                color: rgb(255, 142, 142);
             }
 
         }
@@ -252,6 +255,10 @@ main {
                 align-items: center;
             }
         }
+    }
+
+    .greyscale-icon{
+        color: #adadad !important;
     }
 }
 
