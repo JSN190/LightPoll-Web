@@ -50,10 +50,10 @@ export default {
 @import url('https://fonts.googleapis.com/css?family=Arimo');
 
 header {
-    height: 60px;
+    height: 75px;
 
     nav {
-        height: 60px;
+        height: 75px;
 
         .container {
             height: 100%;

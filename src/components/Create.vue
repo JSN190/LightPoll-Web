@@ -35,7 +35,7 @@
                         </div>
                         <footer class="card-footer">
                             <div>
-                                <a id="main-poll-create" class="button is-info is-outlined is-rounded" v-on:click="sendPollAndRetrieveId">
+                                <a id="main-poll-create" class="button is-rounded" v-on:click="sendPollAndRetrieveId">
                                     Create Poll
                                 </a>
                             </div>
@@ -171,7 +171,7 @@ export default {
 <style lang="scss" scoped>
 @import "~bulma-extensions/bulma-accordion/dist/css/bulma-accordion.min.css";
 main {
-    padding: 15px 0px 25px 0px;
+    padding: 0px 0px 25px 0px;
     #main-poll-form-card {
         border: 0.5px solid #F0F0F0;
         border-radius: 4px;
