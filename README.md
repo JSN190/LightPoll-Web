@@ -10,7 +10,7 @@ facilites rapid creation and distribution of realtime online web polls.
 It is written using the Vue.js framework, also utilising SCSS and Webpack. Currently, LightPoll is pre-release but the 
 core functionality has been implemented. Its API is also approaching completion.
 
-![Create poll](https://i.imgur.com/0qZlqLj.png)
+![Voting](https://i.imgur.com/w0335bd.gif)
 
 ## Configuration
 
