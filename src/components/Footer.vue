@@ -7,7 +7,7 @@
                 &nbsp;•&nbsp;
                 <a href="#">Privacy</a>
                 &nbsp;•&nbsp;
-                <a href="https://github.com/JSN190/LightPoll" target="_blank">GitHub</a>
+                <a href="https://github.com/Tyncture/LightPoll" target="_blank">GitHub</a>
                 &nbsp;•&nbsp;
                 <a href="#">Contact</a>
             </div>
