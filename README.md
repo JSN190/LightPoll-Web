@@ -7,8 +7,7 @@
 LightPoll Web is a frontend for the [LightPoll](https://github.com/JSN190/LightPoll) web application which 
 facilites rapid creation and distribution of realtime online web polls.
 
-It is written using the Vue.js framework, also utilising SCSS and Webpack. Currently, LightPoll is pre-release but the 
-core functionality has been implemented. Its API is also approaching completion.
+It is written using the Vue.js framework, also utilising SCSS and Webpack.
 
 ![Voting](https://i.imgur.com/w0335bd.gif)
 
@@ -22,7 +21,7 @@ Before building the static files, ensure that you have all the required dependen
 - `LPW_URL` The URL pointing to where you will host LightPoll Web.
 - `LPW_HIST`: Whether to enable (`1`) or disable (`0`) Vue Router history mode.
 
-This project leverages [`vue init webpack`](https://github.com/vuejs-templates/webpack) for its Webpack configuration. To build using the `npm run build` script or to set parameters for development, use the `*.env.js` files in `/config`.
+To build using the `npm run build` script or to set parameters for development, use the `*.env.js` files in `/config`.
 
 ### Output
 
