@@ -8,7 +8,7 @@
 LightPoll Web is a frontend for the [LightPoll](https://github.com/Tyncture/LightPoll) web application which 
 facilites rapid creation and distribution of realtime online web polls.
 
-It is written using the Vue.js framework, using `vue init webpack`.
+It is written using the Vue.js framework.
 
 ![Voting](https://i.imgur.com/w0335bd.gif)
 
