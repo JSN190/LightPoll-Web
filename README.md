@@ -1,7 +1,7 @@
 # LightPoll Web
-![Repository Size](https://img.shields.io/github/repo-size/JSN190/LightPollWeb.svg?t&style=flat-square)
+![Repository Size](https://img.shields.io/github/repo-size/Tyncture/LightPollWeb.svg?t&style=flat-square)
 ![License](https://img.shields.io/github/license/JSN190/LightPollWeb.svg?&style=flat-square)
-![Top Language](https://img.shields.io/github/languages/top/JSN190/LightPollWeb.svg?&style=flat-square)
+![Top Language](https://img.shields.io/github/languages/top/Tyncture/LightPollWeb.svg?&style=flat-square)
 [![Website Uptime](https://img.shields.io/website-up-down-green-red/http/www.lightpoll.org.svg?label=www.lightpoll.org&style=flat-square)](https://www.lightpoll.org)
 [![Netlify Status](https://api.netlify.com/api/v1/badges/66474294-5d8d-4286-b610-58d8f85a07d7/deploy-status)](https://www.lightpoll.org)
 
