@@ -2,7 +2,11 @@
   "name": "lightpoll-web",
   "version": "1.0.0",
   "author": "John Su",
-  "private": true,
+  "homepage": "https://github.com/Tyncture/lightpoll-web",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Tyncture/lightpoll-web.git"
+  },
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
