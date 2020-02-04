@@ -18,7 +18,6 @@ export default {
     Footer,
   },
 };
-console.log(process.env);
 </script>
 
 <style lang="scss">
