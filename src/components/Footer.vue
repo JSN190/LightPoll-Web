@@ -9,7 +9,7 @@
           >Issue Tracker</a
         >
         &nbsp;•&nbsp;
-        <a href="https://github.com/Tyncture/LightPoll" target="_blank"
+        <a href="https://github.com/Tyncture/LightPoll-web" target="_blank"
           >GitHub</a
         >
         &nbsp;•&nbsp;
