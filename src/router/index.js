@@ -8,7 +8,7 @@ import PollResults from "../components/PollResults.vue";
 Vue.use(Router);
 
 export default new Router({
-  mode: process.env.VUE_APP_LPW_HIST === 1 ? "history" : "hash",
+  mode: process.env.VUE_APP_LPW_HIST === "1" ? "history" : "hash",
   routes: [
     { path: "/", component: Create, name: "Create" },
     {
